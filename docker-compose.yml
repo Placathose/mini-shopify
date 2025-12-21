@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: mini-shopify-postgres
+    environment:
+      POSTGRES_USER: shopify
+      POSTGRES_PASSWORD: shopify
+      POSTGRES_DB: shopify_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  product-service:
+    build: ./services/product-service
+    container_name: product-service
+    command: npm run dev
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./services/product-service/.env
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:

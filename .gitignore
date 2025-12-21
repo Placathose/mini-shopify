@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Docker
+postgres_data/
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+
+# Build outputs (future)
+dist/
+build/

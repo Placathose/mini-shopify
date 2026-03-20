@@ -9,9 +9,10 @@ const getInventory = async (productId) => {
 
 const updateInventory = async (productId, quantity) => {
   return db.query(
-    `UPDATE inventory
-     SET quantity = $2, updated_at = NOW()
-     WHERE product_id = $1
+    `INSERT INTO inventory (product_id, quantity, updated_at)
+     VALUES ($1, $2, NOW())
+     ON CONFLICT (product_id)
+     DO UPDATE SET quantity = EXCLUDED.quantity, updated_at = NOW()
      RETURNING *`,
     [productId, quantity]
   );

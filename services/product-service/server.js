@@ -1,14 +1,16 @@
 const express = require("express");
-const db = require("./db");
-const app = express();
+require("dotenv").config();
 
-const inventoryRoutes = require("./routes/inventory");
+const productRoutes = require("./routes/products");
+const db = require("./db");
+
+const app = express();
 
 app.use(express.json());
 
-app.use("/inventory", inventoryRoutes);
+app.use("/products", productRoutes);
 
-const PORT = 4000;
+const PORT = process.env.PORT || 3001;
 
 (async () => {
   try {
@@ -19,6 +21,6 @@ const PORT = 4000;
   }
 
   app.listen(PORT, () => {
-    console.log(`Inventory service running on port ${PORT}`);
+    console.log(`Product service running on port ${PORT}`);
   });
 })();
